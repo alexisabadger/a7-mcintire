@@ -45,42 +45,48 @@ async function fetchData(event) {
     const urlName = 'https://randomuser.me/api/';
 
     try {
-        // Define a variable to response with await and fetch of the urlName.
+        // a variable to hold the response from the fetch() call
         const response = await fetch(urlName);
         
-        // Define a variable to await the .json() response.
+        // a variable to await the .json() response.
         const data = await response.json();
 
         if (response.ok) {
-            // Add the new staff member to the array
+
+            // if the service/API works, add the new staff member to the array
             const newStaffMember = data.results[0];
             staffMembers.push(newStaffMember);
 
-            // Render all staff members
-            renderStaffMembers();
+            // render staff members
+            showStaff();
             
-            // Define a variable for the success message. Use innerHTML to add that message to the first paragraph of the <aside> on the staff.html page.
+            // render the success message if the API call is successful
             const successMessage = document.getElementById('successMessage');
             successMessage.innerHTML = 'Data fetched successfully.';
 
+            // render the server message if the API call is successful
             if (successMessage) {
                 serverMessage.innerHTML = 'Server Message:';
             }
         }
     } catch (error) {
-        // Define an error.message value.
+
         const errorMessage = error.message;
 
-        // Use innerHTML to add that error message to the second paragraph of the <aside> on the staff.html page.
         const failureMessage = document.getElementById('failureMessage');
         failureMessage.innerHTML = `Error: ${errorMessage}`;
+
+        // render the server message if the API call is unsuccessful
+        if (failureMessageMessage) {
+            serverMessage.innerHTML = 'Server Message:';
+        }
     }
 }
 
-// Function to render all staff members
-function renderStaffMembers() {
+// function to render all staff members
+function showStaff() {
     const tbody = document.getElementById('apiData');
-    tbody.innerHTML = ''; // Clear existing data
+    tbody.innerHTML = '';
 
     staffMembers.forEach(member => {
         const row = getStaffMember(member);
@@ -88,12 +94,13 @@ function renderStaffMembers() {
     });
 }
 
-// Add an addEventLister() to the end of the module:
+// add an addEventLister() to the end of the module:
 document.addEventListener('DOMContentLoaded', () => {
-    // Define a variable to reference the value of the staff.html page's <button id=""> value.
+
+    // a variable to reference the value of the staff.html page's <button id=""> value
     const buttonId = 'fetchDataButton';
 
-    // Use that variable to listen to the button click and call the async function name.
+    // now, that variable listens to the button click and calls the async function:
     const fetchDataButton = document.getElementById(buttonId);
     fetchDataButton.addEventListener('click', fetchData);
 });
