@@ -1,9 +1,18 @@
+// index.mjs
 'use strict';
 
-const express = require('express');
-const nodemailer = require('nodemailer');
-const app = express();
+// Import necessary modules
+import express from 'express';
+import dotenv from 'dotenv';
+import fetch from 'node-fetch';
+import asyncHandler from 'express-async-handler';
+import nodemailer from 'nodemailer';
+import {theProducts} from './products.mjs';
+
 const PORT = 3000;
+const app = express();
+dotenv.config(); // this isn't working; debug with Pam in office hours
+
 
 app.use(express.urlencoded({ 
   extended: true 
@@ -11,7 +20,12 @@ app.use(express.urlencoded({
 
 app.use(express.static('public'));
 
-const theProducts = require("./products.js");
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+  });
+
 
 function compareSelectedProduct(userProduct) {
   for (const aProduct of theProducts) {
@@ -646,6 +660,47 @@ overflow: clip;
   res.send(`${htmlTop}${responseMessage}${htmlBottom}`);
 });
 
+
+
+// EXTRA CREDIT:
+const logClickMiddleware = (req, res, next) => {
+    // Increment the count
+    clicksCount++;
+    
+    // Print a message every 10 clicks
+    if (clicksCount % interval === 0) {
+      console.log(`Button clicked ${clicksCount} times.`);
+    }
+    
+    next(); // Continue to the next route
+  };
+  
+  // Initialize variables
+  let interval = 10;
+  let clicksCount = 0;
+  
+  // Use the middleware for the /staff route
+  app.use('/staff', logClickMiddleware);
+  
+  // Fetch data using a GET route
+  app.get('/staff/data', asyncHandler(async (req, res) => {
+    // Define an endpoint value to temporarily store the random user results data for each click of the button
+    let endpoint = 'https://randomuser.me/api/';
+  
+    // Define a variable for responses that await fetch from the API's URL
+    let response = await fetch(endpoint);
+  
+    // Define a variable for results data that responds in .json() format
+    let data = await response.json();
+  
+    // Send the data
+    res.json(data);
+  }));
+
+
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+

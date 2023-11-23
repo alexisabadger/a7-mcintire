@@ -93,6 +93,11 @@ article {}
       background-color: var(--transparent-color-yellow);
     }
 
+    #staff {
+      display: grid;
+      background-color: var(--transparent-color-yellow);
+    }
+
 div {}
 aside {}
 footer {
@@ -117,8 +122,13 @@ a {
   font-weight: 700;
 }
 
-a:link {}
-a:hover {}
+a:link {
+  color: var(--embellishment-color-blue);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-color-red);
+}
 a:active {}
 a:visited {}
 

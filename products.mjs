@@ -9,12 +9,19 @@ const products = [
     { company: 'Drool\'d', product: 'Cat Hamster Wheel', price: 349.75 }
 ];
 
+export const theProducts = products.map((product) => {
+    return product;
+  });
+
 // Allow exporting of the object to other functions:
-module.exports = products;
+// (changed to default export to conform with the rest of the project)
+export default products;
 
 
 // Display the object in a table in the terminal console to confirm it works:
 // https://developer.mozilla.org/en-US/docs/Web/API/Console/table
 console.table(products); 
+
+
 
  

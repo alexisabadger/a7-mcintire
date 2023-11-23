@@ -12,9 +12,11 @@
         <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png"> 
         <link rel="manifest" href="site.webmanifest">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
+        <script src="random.js" defer></script>
+
         <title>E. Alex McIntire</title>
     </head>
 
@@ -38,9 +40,30 @@
         <a href="./staff.html">Staff</a>
     </nav>
 
-    <main id="gallery">
+    <main id="staff">
         <section>
             <h2>Staff</h2>
+
+            <article>
+                <p>This page allows you to fetch data from the Random User Generator API. You can click the button below to retrieve one row of data from the API's results object.</p>
+                
+                <aside>
+                    <h3>Server Messages</h3>
+                    <p id="successMessage">Success messages will appear here.</p>
+                    <p id="failureMessage">Failure messages will appear here.</p>
+                </aside>
+
+                <button id="fetchDataButton">Fetch Data</button>
+
+                <table>
+                    <thead>
+                        <!-- Table header content -->
+                    </thead>
+                    <tbody id="apiData"> <!-- ID for use when fetching external data -->
+                        <!-- Table rows and columns will be populated dynamically -->
+                    </tbody>
+                </table>
+            </article>
         </section>
     </main>
 
