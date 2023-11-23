@@ -460,6 +460,19 @@ object {}
       }
 }
 
+/* EXTRA CREDIT - Module 7 Styling */
+#staff section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#fetchDataButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /*   ===== DESKTOP  media query overrides mobile and tablet styles ===== */
 @media all and (min-width: 1080px) {}
 

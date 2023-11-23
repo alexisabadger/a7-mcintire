@@ -1,99 +1,22 @@
-// 'use strict';
-
-// // Define a function that renders a row of the results from the API using innerHTML.
-// function renderRow(results) {
-//     // Define the most appropriate HTML tags and attributes for the API's results object.
-//     const row = document.createElement('tr');
-    
-//     const thumbnailCell = document.createElement('td');
-//     const thumbnailImg = document.createElement('img');
-//     thumbnailImg.src = results.picture.thumbnail;
-//     thumbnailCell.appendChild(thumbnailImg);
-//     row.appendChild(thumbnailCell);
-
-//     const emailCell = document.createElement('td');
-//     const emailLink = document.createElement('a');
-//     emailLink.href = `mailto:${results.email}`;
-//     emailLink.textContent = `${results.name.first} ${results.name.last}`;
-//     emailCell.appendChild(emailLink);
-//     row.appendChild(emailCell);
-
-//     const phoneCell = document.createElement('td');
-//     phoneCell.textContent = results.phone;
-//     row.appendChild(phoneCell);
-
-//     const cityCell = document.createElement('td');
-//     cityCell.textContent = results.location.city;
-//     row.appendChild(cityCell);
-
-//     return row;
-// }
-
-// // Define an asynchronous function that fetches the data based on the button click event.
-// async function fetchData(event) {
-//     event.preventDefault();
-
-//     // Define a variable for the attribute being used to dynamically import the data (id of the <tbody>).
-//     const targetId = 'apiData';
-    
-//     // Define a variable to reference the API URL.
-//     const urlName = 'https://randomuser.me/api/';
-
-//     try {
-//         // Define a variable to response with await and fetch of the urlName.
-//         const response = await fetch(urlName);
-        
-//         // Define a variable to await the .json() response.
-//         const data = await response.json();
-
-//         if (response.ok) {
-//             // Render the rows by calling the previous function and incrementing the results from zero, using .results[0].
-//             const tbody = document.getElementById(targetId);
-//             tbody.innerHTML = ''; // Clear existing data
-
-//             const results = data.results[0];
-//             const row = renderRow(results);
-//             tbody.appendChild(row);
-
-//             // Define a variable for the success message. Use innerHTML to add that message to the first paragraph of the <aside> on the staff.html page.
-//             const successMessage = document.getElementById('successMessage');
-//             successMessage.innerHTML = 'Data fetched successfully.';
-//         }
-//     } catch (error) {
-//         // Define an error.message value.
-//         const errorMessage = error.message;
-
-//         // Use innerHTML to add that error message to the second paragraph of the <aside> on the staff.html page.
-//         const failureMessage = document.getElementById('failureMessage');
-//         failureMessage.innerHTML = `Error: ${errorMessage}`;
-//     }
-// }
-
-// // Add an addEventLister() to the end of the module:
-// document.addEventListener('DOMContentLoaded', () => {
-//     // Define a variable to reference the value of the staff.html page's <button id=""> value.
-//     const buttonId = 'fetchDataButton';
-
-//     // Use that variable to listen to the button click and call the async function name.
-//     const fetchDataButton = document.getElementById(buttonId);
-//     fetchDataButton.addEventListener('click', fetchData);
-// });
-
 'use strict';
 
+// create an array to hold the staff members
 let staffMembers = [];
 
-// Define a function that renders a row of the results from the API using innerHTML.
-function renderRow(results) {
-    // Define the most appropriate HTML tags and attributes for the API's results object.
+// define a function that renders a row of the results from API (using innerHTML)
+function getStaffMember(results) {
+    
+    // build staff member row from the results
     const row = document.createElement('tr');
     
-    const thumbnailCell = document.createElement('td');
-    const thumbnailImg = document.createElement('img');
-    thumbnailImg.src = results.picture.thumbnail;
-    thumbnailCell.appendChild(thumbnailImg);
-    row.appendChild(thumbnailCell);
+    // create a cell for the staff member's image
+    const staffMemberImgCell = document.createElement('td');
+    const staffMemberImg = document.createElement('img');
+    staffMemberImg.src = results.picture.thumbnail;
+    staffMemberImgCell.appendChild(staffMemberImg);
+    row.appendChild(staffMemberImgCell);
 
+    // create a cell for the staff member's name and email
     const emailCell = document.createElement('td');
     const emailLink = document.createElement('a');
     emailLink.href = `mailto:${results.email}`;
@@ -101,10 +24,12 @@ function renderRow(results) {
     emailCell.appendChild(emailLink);
     row.appendChild(emailCell);
 
-    const phoneCell = document.createElement('td');
-    phoneCell.textContent = results.phone;
-    row.appendChild(phoneCell);
+    // create a cell for the staff member's phone number
+    const phoneNumberCell = document.createElement('td');
+    phoneNumberCell.textContent = results.phone;
+    row.appendChild(phoneNumberCell);
 
+    // create a cell for the staff member's city
     const cityCell = document.createElement('td');
     cityCell.textContent = results.location.city;
     row.appendChild(cityCell);
@@ -112,11 +37,11 @@ function renderRow(results) {
     return row;
 }
 
-// Define an asynchronous function that fetches the data based on the button click event.
+// create async function to fetches the data from the API (based on button click)
 async function fetchData(event) {
     event.preventDefault();
 
-    // Define a variable to reference the API URL.
+    // variable to reference the API URL
     const urlName = 'https://randomuser.me/api/';
 
     try {
@@ -137,6 +62,10 @@ async function fetchData(event) {
             // Define a variable for the success message. Use innerHTML to add that message to the first paragraph of the <aside> on the staff.html page.
             const successMessage = document.getElementById('successMessage');
             successMessage.innerHTML = 'Data fetched successfully.';
+
+            if (successMessage) {
+                serverMessage.innerHTML = 'Server Message:';
+            }
         }
     } catch (error) {
         // Define an error.message value.
@@ -154,7 +83,7 @@ function renderStaffMembers() {
     tbody.innerHTML = ''; // Clear existing data
 
     staffMembers.forEach(member => {
-        const row = renderRow(member);
+        const row = getStaffMember(member);
         tbody.appendChild(row);
     });
 }

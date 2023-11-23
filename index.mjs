@@ -663,38 +663,14 @@ overflow: clip;
 
 
 // EXTRA CREDIT:
-const logClickMiddleware = (req, res, next) => {
-    // Increment the count
-    clicksCount++;
-    
-    // Print a message every 10 clicks
-    if (clicksCount % interval === 0) {
-      console.log(`Button clicked ${clicksCount} times.`);
-    }
-    
-    next(); // Continue to the next route
-  };
   
-  // Initialize variables
-  let interval = 10;
-  let clicksCount = 0;
-  
-  // Use the middleware for the /staff route
-  app.use('/staff', logClickMiddleware);
-  
-  // Fetch data using a GET route
+  // GET route to fetch data from randomuser.me API
   app.get('/staff/data', asyncHandler(async (req, res) => {
-    // Define an endpoint value to temporarily store the random user results data for each click of the button
-    let endpoint = 'https://randomuser.me/api/';
+    let APIresponse = 'https://randomuser.me/api/';
+    let response = await fetch(APIresponse);
+    let userData = await response.json();
   
-    // Define a variable for responses that await fetch from the API's URL
-    let response = await fetch(endpoint);
-  
-    // Define a variable for results data that responds in .json() format
-    let data = await response.json();
-  
-    // Send the data
-    res.json(data);
+    res.json(userData);
   }));
 
 
